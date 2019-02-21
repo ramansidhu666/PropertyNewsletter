@@ -1,0 +1,333 @@
+﻿
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="~/redactor/redactor.css" rel="stylesheet" />
+<script src="~/redactor/redactor.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+		function () {
+		   // $('#redactor').redactor();
+		}
+	);
+</script>
+
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<!-- Redactor is here -->
+
+
+<style>
+    [contentEditable=true]:empty:not(:focus):before {
+        content: attr(data-ph);
+    }
+
+    #hover-content {
+        display: none;
+    }
+
+    /*#textarea1:hover {
+        display: block;
+    }
+
+
+    #textarea1:hover  {
+        background-color: #e5e0e0;
+        content: attr(data-tooltip);
+        position: absolute;
+        padding: 5px 10px;
+        /*margin: -3px 0 0 180px;*/
+
+    color: black; border-radius: 3px;
+    }
+
+    */ #textarea2:hover {
+        background-color: #e5e0e0;
+        content: attr(data-tooltip);
+        position: absolute;
+        padding: 5px 10px;
+        /*margin: -3px 0 0 180px;*/
+        color: black;
+        border-radius: 3px;
+    }
+
+    #logo_img:hover {
+        background-color: #e5e0e0;
+        border-radius: 3px;
+        border-color: black;
+    }
+
+    #usr_img:hover {
+        background-color: #e5e0e0;
+        border-radius: 3px;
+        border-color: black;
+    }
+</style>
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        //$('#textarea2').redactor();
+
+        $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+            e.preventDefault();
+            $(this).siblings('a.active').removeClass("active");
+            $(this).addClass("active");
+            var index = $(this).index();
+            $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+            $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+        });
+
+        $('#userlogo').click(function () {
+            debugger;
+            Openmodel();
+        }
+        )
+        $('#userimg').click(function () {
+            debugger;
+            OpenUsrImgmodel();
+        }
+       )
+
+
+    });
+    //open User logo  model
+    function Openmodel() {
+        backdrop: 'static';
+        keyboard: false;
+        $('#myModal').click();
+        return false;
+    }
+    //end
+
+    //open User logo  model
+    function OpenUsrImgmodel() {
+        backdrop: 'static';
+        keyboard: false;
+        $('#myImgModal').click();
+        return false;
+    }
+    //end
+
+
+    function showLogopreview(input) {
+        debugger;
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#logoprvw').attr('src', e.target.result);
+                $('#myModal').click();
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function showUsrImgpreview(input) {
+        debugger;
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#imgprvw').attr('src', e.target.result);
+                $('#myImgModal').click();
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+@model PropertyNewsletter.Models.NewsletterModel
+<div class="container">
+    @*<textarea id="redactor" name="content">
+            <h2>Hello and Welcome</h2>
+            <p>Lorem ipsum <a href="http://test.com" title="dolor">dolor</a> sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing <b>elit, sed do eiusmod tempor incididunt</b> ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </textarea>*@
+    @using (Ajax.BeginForm("LogoImage", "home", new AjaxOptions { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="newsltr_bg">
+                    <div style="float:left; width:100%; background-color:#231f20; border-bottom:8px solid #eda320; padding:6px 0;">
+                        <div id="userlogo" style="float:left; width:30%; padding:6px; text-align:center;">
+                            <img id="logoprvw" src="~/NewsLetterImages/ef612375-baad-496b-acf2-b9c0db2c13f0.jpg" alt="" title="" style="width:60%;" />
+                        </div>
+
+                        <div style="float:left; width:70%; padding:6px;">
+                            <textarea name="FirstContent" contenteditable="true" style="float: left; width: 100%; font-size: 26px; padding: 1px 0 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #55518a; margin-top: 6px; height: 40px; "> Tittle of the Newsletter Section</textarea>
+                            <div style="float:left; width:100%; margin:12px 0 0;">
+                                <h2 style="float:left; width:100%; font-size:18px; font-family:Arial, Helvetica, sans-serif; color:#FFF; margin: 0px;">Rajinder Pal Singh</h2>
+                                <p style="float:left; width:100%; font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#c48820; margin:5px 0 2px 0;">HomeLife/Miracle Realty Ltd., Brokerage*</p>
+                                <p style="float:left; width:100%;">
+                                    <span style="float:left; font-size:15px; color:#c48820;">Phone:</span>
+                                    <span style="float:left; font-size:14px; color:#FFF; margin:0 10px 0 4px;">416-844-5725</span>
+                                    <span style="float:left; font-size:15px; color:#c48820; margin: 0 6px 0 1px">Email:</span>
+                                    <span style="float:left; font-size:14px; color:#FFF;">homekey123@yahoo.com</span>
+                                </p>
+                                <p style="float:left; width:100%;">
+                                    <span style="float:left; font-size:15px; color:#c48820;">Address:</span>
+                                    <span style="float:left; font-size:14px; color:#FFF; margin:0 10px 0 4px;">5010 Steeles Avenue West , Suite 11A , Toronto, Ontario, M9V 5C6</span>
+                                </p>
+                                <p style="float:left; width:100%; font-size:22px; font-family:Arial, Helvetica, sans-serif; color:#c48820; margin:5px 0 0;">www.homelifemiracle.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left; width:100%;">
+                        <div style="float:left; width:30%; padding:6px; padding:12px 4px; background:#026f52; height:700px;">
+
+                            <textarea id="textarea1" class="txtarea" name="SecondContent" contenteditable="true" style="float: left; width: 100%; color: white; font-size: 14px; line-height: 22px; white-space: normal; text-align: justify; padding: 4px 10px; background: none; height: 650px; border: 0px;">
+                                simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy textsimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy textsimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy textsimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                            </textarea>
+                        </div>
+
+                        <div style="float:left; width:70%; padding:3px 0 0 3px;">
+                            <div id="userimg" style="float:left; width:100%;">
+                                <img id="imgprvw" src="~/NewsLetterImages/db038f71-6784-4fe6-aad7-6628a14437ee.jpg" style="width:100%; height:350px; " alt="" title="" />
+                            </div>
+                            <div style="float:left; width:100%; margin-top:3px; background-color:#f0f0f0;">
+
+                                <textarea id="textarea2" class="txtarea" name="ThirdContent" contenteditable="true" style="float:left; width:100%;  color:#3d3d3d; font-size:13px; line-height: 22px; white-space: normal; text-align: justify; padding: 4px 10px;">
+                                    simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                                    simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                                    simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                                </textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-12">
+                <div class="bottom_button_section">
+                    <input id="submitmodalpopup" type="submit" value="Send" class="button" />
+                </div>
+            </div>
+
+            @*<div class="col-lg-10 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bhoechie-tab ">
+
+                    <div class="bhoechie-tab-content active">
+
+                        <div style="width:50px;float:left"><label>Company Logo</label></div><div id="logo_img"><div class="img-newsltr" style="width:294px;float:left"><a href="#" id="userlogo"><img id="logoprvw" src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="192px" /></a></div></div>
+                        <div class="firstdiv">
+                            <div class="contnt-newsltr  ">
+                                <textarea name="FirstContent" contenteditable="true" style="margin-top: 0; color: #55518a; width: 200px;height:40px"> Title</textarea>
+                            </div>
+                        </div>
+                        <div style="width:50px;float:left"><label>User Image</label></div><div id="usr_img" class="img-newsltr" style="width:223px;float:left"><a href="#" id="userimg"><img id="imgprvw" src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="230px" /></a></div>
+
+
+                        <div id="sconddiv" data-tooltip="This is my tooltip" class="seconddiv">
+                            <div id="scond_innr" class="second_innr">
+                                <textarea id="textarea1" class="txtarea" name="SecondContent" contenteditable="true"> SecondContent</textarea>
+
+                            </div>
+
+                        </div>
+                        <div id="hover-content">
+                            Only show this when hovering parent
+                        </div>
+                        <div class="thirddiv">
+                            <div class="">
+                                <textarea id="textarea2" class="txtarea" name="ThirdContent" contenteditable="true"> ThirdContent</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input id="submitmodalpopup" type="submit" value="Send" class="button" />
+                </div>
+                </div>*@
+
+
+
+
+
+            <button id="myModal" type="button" style="visibility: hidden" class="btn btn-info btn-lg" data-toggle="modal" data-target="#favouriteProperties" data-backdrop="static" data-keyboard="false">Open Modal</button>
+
+            <!--logo image Modal -->
+            <div class="modal fade" id="favouriteProperties" role="dialog">
+                <div class="modal-dialog modl_bgg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content new_pop">
+                        <div class="modal-header mdl_hdrrr">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 id="popupheading" class="modal-title modl_hdng">Upload logo</h4>
+                        </div>
+                        <div class="modal-body modl_bg">
+
+                            <ul class="list_to_row">
+                                <li class="cell" style="width: 75px">Browse</li>
+                                <li class="cell">
+                                    <input type="file" id="file" name="Logofile" onchange="showLogopreview(this)" />
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="modal_button_area">
+
+                                <button type="button" id="closefav" class="btn btn-default mdl_cls_btn" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Trigger the User Image modal with a button -->
+            <button id="myImgModal" type="button" style="visibility: hidden" class="btn btn-info btn-lg" data-toggle="modal" data-target="#UserImageDiv" data-backdrop="static" data-keyboard="false">Open Modal</button>
+
+            <!--User image Modal -->
+            <div class="modal fade" id="UserImageDiv" role="dialog">
+                <div class="modal-dialog modl_bgg">
+
+                    <!-- User Modal content-->
+                    <div class="modal-content new_pop">
+                        <div class="modal-header mdl_hdrrr">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 id="popupheading" class="modal-title modl_hdng">Upload User Image</h4>
+                        </div>
+                        <div class="modal-body modl_bg">
+
+                            <ul class="list_to_row">
+                                <li class="cell" style="width: 75px;">Browse</li>
+                                <li class="cell">
+                                    <input type="file" id="file" name="Imgfile" onchange="showUsrImgpreview(this)" />
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="modal_button_area">
+
+                                <button type="button" id="closefav" class="btn btn-default mdl_cls_btn" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    }
+</div>
+
+

@@ -1,0 +1,317 @@
+﻿
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+    /*  bhoechie tab */
+    div.bhoechie-tab-container {
+        z-index: 10;
+        background-color: #ffffff;
+        padding: 0 !important;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        border: 1px solid #ddd;
+        margin-top: 20px;
+        margin-left: 50px;
+        -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        background-clip: padding-box;
+        opacity: 0.97;
+        filter: alpha(opacity=97);
+    }
+
+    div.bhoechie-tab-menu {
+        padding-right: 0;
+        padding-left: 0;
+        padding-bottom: 0;
+    }
+
+        div.bhoechie-tab-menu div.list-group {
+            margin-bottom: 0;
+        }
+
+            div.bhoechie-tab-menu div.list-group > a {
+                margin-bottom: 0;
+            }
+
+                div.bhoechie-tab-menu div.list-group > a .glyphicon,
+                div.bhoechie-tab-menu div.list-group > a .fa {
+                    color: #5A55A3;
+                }
+
+                div.bhoechie-tab-menu div.list-group > a:first-child {
+                    border-top-right-radius: 0;
+                    -moz-border-top-right-radius: 0;
+                }
+
+                div.bhoechie-tab-menu div.list-group > a:last-child {
+                    border-bottom-right-radius: 0;
+                    -moz-border-bottom-right-radius: 0;
+                }
+
+                div.bhoechie-tab-menu div.list-group > a.active,
+                div.bhoechie-tab-menu div.list-group > a.active .glyphicon,
+                div.bhoechie-tab-menu div.list-group > a.active .fa {
+                    background-color: #5A55A3;
+                    background-image: #5A55A3;
+                    color: #ffffff;
+                }
+
+                    div.bhoechie-tab-menu div.list-group > a.active:after {
+                        content: '';
+                        position: absolute;
+                        left: 100%;
+                        top: 50%;
+                        margin-top: -13px;
+                        border-left: 0;
+                        border-bottom: 13px solid transparent;
+                        border-top: 13px solid transparent;
+                        border-left: 10px solid #5A55A3;
+                    }
+
+    div.bhoechie-tab-content {
+        background-color: #ffffff;
+        /* border: 1px solid #eeeeee; */
+        padding-left: 20px;
+        padding-top: 10px;
+    }
+
+    div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+            e.preventDefault();
+            $(this).siblings('a.active').removeClass("active");
+            $(this).addClass("active");
+            var index = $(this).index();
+            $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+            $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+        });
+
+        $('#userlogo').click(function ()
+        {
+            debugger;
+            Openmodel();
+        }
+        )
+        $('#userimg').click(function () {
+            debugger;
+            OpenUsrImgmodel();
+        }
+       )
+        
+        @*var formData = new FormData();
+        formData.append("file", $(this).find("input[type='file']")[0].files);
+        $('#uploadlogo').click(function () {
+
+            debugger;
+            $.ajax({
+                url: '@Url.Action("LogoImage", "Home")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+            });
+        }
+       )*@
+       
+    });
+    //open User logo  model
+    function Openmodel() {
+        backdrop: 'static';
+        keyboard: false;
+        $('#myModal').click();
+        return false;
+    }
+    //end
+
+    //open User logo  model
+    function OpenUsrImgmodel() {
+        backdrop: 'static';
+        keyboard: false;
+        $('#myImgModal').click();
+        return false;
+    }
+    //end
+
+    
+    function showLogopreview(input) {
+        debugger;
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#logoprvw').attr('src', e.target.result);
+                $('#myModal').click(); 
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function showUsrImgpreview(input) {
+        debugger;
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#imgprvw').attr('src', e.target.result);
+                $('#myImgModal').click();
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+<div class="container">
+@using (Ajax.BeginForm("LogoImage", "home", new AjaxOptions { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+                {
+
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active text-center">
+                        <h4 class="glyphicon glyphicon-plane"></h4><br />Flight
+                        <img src="~/Images/PhotoW3579800-1%20(1).jpeg" height="20px" width="20px" />
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-road"></h4><br />Train
+                        <img src="~/Images/PhotoW3579800-1%20(1).jpeg" height="20px" width="20px" />
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-home"></h4><br />Hotel
+                        <img src="~/Images/PhotoW3579800-1.jpeg" height="20px" width="20px" />
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-cutlery"></h4><br />Restaurant
+                        <img src="~/Images/PhotoW3596260-1.jpeg" height="20px" width="20px" />
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-credit-card"></h4><br />Credit Card
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+                <!-- flight section -->
+                <div class="bhoechie-tab-content active">
+
+                    <div><a href="#" id="userlogo"><img id="logoprvw" src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="100px" /></a></div>
+                    <div><a href="#" id="userimg"><img id="imgprvw" src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="100px" /></a></div>
+                    <h2 style="margin-top: 0;color:#55518a">Toronto</h2>
+
+                </div>
+                <!-- train section -->
+                <div class="bhoechie-tab-content">
+                    <div><a href="#" id="userlogo"><img id="usrimgprvw" src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="100px" /></a></div>
+                    <div><a href="#" id="userimg"><img src="~/Images/PhotoW3579800-1.jpeg" height="100px" width="100px" /></a></div>
+                    <h2 style="margin-top: 0;color:#55518a">Brampton</h2>
+                        
+                    
+                </div>
+
+                <!-- hotel search -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-home" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">Ontario</h2>
+                        <h3 style="margin-top: 0;color:#55518a"><img src="~/Images/PhotoW3579800-1 (1).jpeg" height="40px" width="40px" /></h3>
+                    </center>
+                </div>
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-cutlery" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">Markham</h2>
+                        <h3 style="margin-top: 0;color:#55518a"><img src="~/Images/PhotoW3579800-1.jpeg" height="40px" width="40px" /></h3>
+                    </center>
+                </div>
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-credit-card" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">King</h2>
+                        <h3 style="margin-top: 0;color:#55518a"><img src="~/Images/PhotoW3579800-1.jpeg" height="40px" width="40px" /></h3>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <input id="submitmodalpopup" type="submit" value="Upload" class="button" />
+    <!-- Trigger the Logo Image modal with a button -->
+<button id="myModal" type="button" style="visibility: hidden" class="btn btn-info btn-lg" data-toggle="modal" data-target="#favouriteProperties" data-backdrop="static" data-keyboard="false">Open Modal</button>
+
+<!--logo image Modal -->
+<div class="modal fade" id="favouriteProperties" role="dialog">
+    <div class="modal-dialog modl_bgg">
+
+        <!-- Modal content-->
+        <div class="modal-content new_pop">
+            <div class="modal-header mdl_hdrrr">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="popupheading" class="modal-title modl_hdng">Upload logo</h4>
+            </div>
+            <div class="modal-body modl_bg">
+                 
+                    <ul class="list_to_row">
+                        <li class="cell" style="width: 75px">Browse</li>
+                        <li class="cell">
+                            <input type="file" id="file" name="Logofile" onchange="showLogopreview(this)" />
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="modal_button_area">
+                       
+                        <button type="button" id="closefav" class="btn btn-default mdl_cls_btn" data-dismiss="modal">Close</button>
+                    </div>
+               
+            </div>
+            </div>
+           
+        </div>
+
+    </div>
+
+
+  <!-- Trigger the User Image modal with a button -->
+    <button id="myImgModal" type="button" style="visibility: hidden" class="btn btn-info btn-lg" data-toggle="modal" data-target="#UserImageDiv" data-backdrop="static" data-keyboard="false">Open Modal</button>
+
+<!--User image Modal -->
+<div class="modal fade" id="UserImageDiv" role="dialog">
+    <div class="modal-dialog modl_bgg">
+
+        <!-- User Modal content-->
+        <div class="modal-content new_pop">
+            <div class="modal-header mdl_hdrrr">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="popupheading" class="modal-title modl_hdng">Upload logo</h4>
+            </div>
+            <div class="modal-body modl_bg">
+                
+                    <ul class="list_to_row">
+                        <li class="cell" style="width: 75px">Browse</li>
+                        <li class="cell">
+                            <input type="file" id="file" name="Imgfile" onchange="showUsrImgpreview(this)" />
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="modal_button_area">
+                       
+                        <button type="button" id="closefav" class="btn btn-default mdl_cls_btn" data-dismiss="modal">Close</button>
+                    </div>
+               
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    
+    
+                }
+</div>
+
+  
